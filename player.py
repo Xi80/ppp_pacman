@@ -20,6 +20,26 @@ class Player(Item):
     def __init__(self, x, y) -> None:
         pass
 
+    def get_next_pos(self,dir: tuple[int, int]) -> tuple[int, int]:
+        """
+        移動方向したい方向を受け取り，移動後の座標を返す．
+
+        Args:
+            dir(tuple[int, int]: 次に移動する量(xの移動量,yの移動量)，右下方向に正
+
+        Returns:
+            tuple[int, int]: 移動後の座標
+
+        Examples:
+            >>> player = Player(4, 4)
+            >>> player.get_next_pos((1, 0))
+            (5, 4)
+            >>> player = Player(4, 4)
+            >>> player.get_next_pos((0, 1))
+            (4, 5)
+        """
+        pass
+
 if __name__ == "__main__":
     import doctest
     doctest.testmod()
