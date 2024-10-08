@@ -44,6 +44,56 @@ class Item:
         """
         pass
 
+    def get_next_pos(self) -> tuple[int, int]:
+        """
+        次に移動したい座標を取得する
+        オーバーライドを想定
+
+        Returns:
+            tuple[int, int]: 次の時刻の座標
+
+        Examples:
+            >>> item = Item(5, 6)
+            >>> item.get_next_pos()
+            (5, 6)
+        """
+        pass
+
+    def get_pos(self) -> tuple[int, int]:
+        """
+        現在の座標を返す
+
+        Returns:
+            tuple[int, int]: 現在の座標
+
+        Examples:
+            >>> item = Item(5, 6)
+            >>> item.get_pos()
+            (5, 6)
+        """
+        pass
+
+    def update_pos(self, stuck: bool = False) -> None:
+        """
+        座標を更新する
+
+        Args:
+            stuck(bool): 移動したい先に他のオブジェクトが存在し，動けない場合にTrue
+
+        Returns:
+            None
+
+        Examples:
+            >>> item = Item(5, 6)
+            >>> item.next_x = 5
+            >>> item.next_y = 7
+            >>> item.get_pos()
+            (5, 6)
+            >>> item.update_pos(False)
+            (5, 7)
+        """
+        pass
+
 if __name__ == "__main__":
     import doctest
     doctest.testmod()
