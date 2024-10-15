@@ -1,34 +1,65 @@
-from item import Item
 from player import Player
-from enemy import Enemy
-from food import Food
-from block import Block
 
 
 class Field:
-    """Fieldクラス
+    """
+    Fieldクラス
     Fieldクラスは、ゲームのフィールドを表すクラスです。
     プレイヤー、敵、アイテムの位置を更新し、Fieldを表示する機能を持ちます。
-    位置を更新する際に衝突判定を行います。
+    アイテムの位置を更新する際に移動先の位置を参照して衝突判定を行います。
 
     Attributes:
-        players (list[Player]): プレイヤーのリスト
-        enemies (list[Enemy]): 敵のリスト
-        foods (list[Food]]): アイテムのリスト
-        blocks (list[Block]): アイテムのリスト
+        player (list[Player]): プレイヤーのリスト
         field (list[list[str]]): フィールドの情報
         f_size (int): フィールドのサイズ
     """
 
-def _init_(
-        self,
-        player:list[Player],
-        ememies:list[Enemy],
-        foods:list[Food],
-        blocks:list[Blocks],
-        field:list[Field],
-        f_size: int = 6) -> None:
+    def _init_(
+            self,
+            players: list[Player],
+            f_size: int = 6) -> None:
+        """
+        Fieldの初期化を行う関数
 
-    pass
+        Args:
+            player(list[Player]):プレイヤーのリスト
+            f_size (int): フィールドのサイズ
 
 
+        """
+        pass
+
+    def update_field(self) -> list[list[str]]:
+        """
+        プレイヤーの位置の変数を参照し、Fieldを更新する関数
+
+        Returns:
+            list[list[str]]: 更新されたFieldの情報
+
+        Example:
+            >>> p =[Player(1, 0)]
+            >>> p[0].icon = "p1"
+            >>> field = Field(p,3)
+            >>> field.update_field()[0]
+            ['p1', ' ', ' ']
+        """
+        return [[]]
+
+    # Fieldを表示する関数
+    def _display_field(self) -> None:
+        """
+        Fieldをディスプレイに表示する関数
+
+        Example:
+        >>> p=[Player(1,0)]
+        >>> p[0].icon = "p1"
+        >>> field = Field(p,3)
+        >>> field.display_field()
+
+        """
+        pass
+
+
+if __name__ == "__main__":
+    import doctest
+    doctest.testmod()
