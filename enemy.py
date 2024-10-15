@@ -1,5 +1,5 @@
 from item import Item
-# import random
+import random
 
 
 class Enemy(Item):
@@ -31,7 +31,7 @@ class Enemy(Item):
 
     def __init__(self, x, y) -> None:
         super().__init__(x, y)
-        pass
+        self.icon = '👻'
 
     def get_next_pos(self) -> tuple[int, int]:
         """次に移動する座標を乱数により決定する
@@ -47,8 +47,11 @@ class Enemy(Item):
             True
 
         """
-        pass
-
+        movable_directions = [(0, 0), (0, 1), (0, -1), (1, 0), (-1, 0)]
+        current_position = self.get_pos()
+        self.next_x = current_position[0] + random.choice(movable_directions)[0]
+        self.next_y = current_position[1] + random.choice(movable_directions)[1]
+        return self.next_x, self.next_y
 
 if __name__ == "__main__":
     import doctest
