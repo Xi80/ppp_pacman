@@ -1,5 +1,6 @@
 from item import Item
 
+
 class Food(Item):
     """
     Foodクラス

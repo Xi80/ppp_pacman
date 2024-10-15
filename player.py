@@ -20,7 +20,7 @@ class Player(Item):
     def __init__(self, x, y) -> None:
         pass
 
-    def get_next_pos(self,dir: tuple[int, int]) -> tuple[int, int]:
+    def get_next_pos(self, dir: tuple[int, int]) -> tuple[int, int]:
         """
         移動方向したい方向を受け取り，移動後の座標を返す．
 
@@ -39,6 +39,7 @@ class Player(Item):
             (4, 5)
         """
         pass
+
 
 if __name__ == "__main__":
     import doctest
