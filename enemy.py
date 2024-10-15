@@ -1,5 +1,5 @@
 from item import Item
-import random
+# import random
 
 
 class Enemy(Item):
