@@ -42,7 +42,12 @@ class Item:
             >>> item.status
             True
         """
-        pass
+        self.now_x = x
+        self.now_y = y
+        self.next_x = x
+        self.next_y = y
+        self.icon = ''
+        self.status = True
 
     def get_next_pos(self) -> tuple[int, int]:
         """
@@ -57,7 +62,7 @@ class Item:
             >>> item.get_next_pos()
             (5, 6)
         """
-        pass
+        return self.next_x, self.next_y
 
     def get_pos(self) -> tuple[int, int]:
         """
@@ -71,7 +76,7 @@ class Item:
             >>> item.get_pos()
             (5, 6)
         """
-        pass
+        return self.now_x, self.now_y
 
     def update_pos(self, stuck: bool = False) -> None:
         """
@@ -90,9 +95,14 @@ class Item:
             >>> item.get_pos()
             (5, 6)
             >>> item.update_pos(False)
+            >>> item.get_pos()
             (5, 7)
         """
-        pass
+
+        if stuck:
+            pass
+        self.now_x = self.next_x
+        self.now_y = self.next_y
 
 
 if __name__ == "__main__":
