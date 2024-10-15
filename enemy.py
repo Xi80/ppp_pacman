@@ -14,6 +14,19 @@ class Enemy(Item):
         self.next_x(int) : 次の時刻でのx座標
         self.next_y(int) : 次の時刻でのy座標
         self.status(bool) : アイテムの状態（Trueなら存在する、Falseなら存在しない消滅した）
+
+    Examples:
+        >>> enemy = Enemy(6, 7)
+        >>> enemy.now_x
+        6
+        >>> enemy.now_y
+        7
+        >>> enemy.icon
+        '👻'
+        >>> enemy.status
+        True
+        >>> isinstance(enemy, Item)
+        True
     """
 
     def __init__(self, x, y) -> None:
