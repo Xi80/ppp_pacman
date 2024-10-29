@@ -14,7 +14,7 @@ class Field:
         f_size (int): フィールドのサイズ
     """
 
-    def _init_(
+    def __init__(
             self,
             players: list[Player],
             f_size: int = 6) -> None:
@@ -27,9 +27,12 @@ class Field:
 
 
         """
+        self.f_size = f_size
+        self.field = [[" "for _ in range(f_size)] for _ in range(f_size)]
+        self.players = players
         pass
 
-    def update_field(self) -> list[list[str]]:
+    def _update_field(self) -> list[list[str]]:
         """
         プレイヤーの位置の変数を参照し、Fieldを更新する関数
 
@@ -40,9 +43,17 @@ class Field:
             >>> p =[Player(1, 0)]
             >>> p[0].icon = "p1"
             >>> field = Field(p,3)
-            >>> field.update_field()[0]
+            >>> field._update_field()[0]
             ['p1', ' ', ' ']
         """
+        # fieldを初期化して空白にする
+        for i in range(len(self.field)):
+            for j in range(len(self.field[i])):
+                self.field[i][j] = " "
+        # playerの更新処理
+        for player in self.players:
+            if player.status:
+                self.field[player.now_y][player.now_x] = player.icon
         return [[]]
 
     # Fieldを表示する関数
@@ -52,11 +63,21 @@ class Field:
 
         Example:
         >>> p=[Player(1,0)]
-        >>> p[0].icon = "p1"
+        >>> p[0].icon = "p"
         >>> field = Field(p,3)
-        >>> field.display_field()
-
+        >>> field._display_field()
+             p 
+                
+                
         """
+        # self.fieldを表示
+        max_width = max(len(row) for row in self.field)
+        # 文字列を作成し、空白で埋める
+        for row in self.field:
+            row_str = "".join(row)
+            row_str = row_str.ljust(max_width)
+            print(row_str)
+
         pass
 
 
