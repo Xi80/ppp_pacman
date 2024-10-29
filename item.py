@@ -100,7 +100,10 @@ class Item:
         """
 
         if stuck:
+            self.next_x = self.now_x
+            self.next_y = self.now_y
             pass
+
         self.now_x = self.next_x
         self.now_y = self.next_y
 
