@@ -3,13 +3,14 @@ import termios
 
 
 class InputWithoutEnter:
-    """Enterキーを押さずにキーボード入力を受け取る"""
+    """エンターキーを押さずに入力を受け取るクラス"""
 
-    def input_without_enter(self):
-        '''エンターキーを押さずに入力を受け取る
+    @staticmethod
+    def input_without_enter():
+        """エンターキーを押さずに入力を受け取る
         Returns:
             str: 入力された文字
-        '''
+        """
 
         # 標準入力のファイルディスクリプタを取得
         fd = sys.stdin.fileno()
