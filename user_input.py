@@ -29,4 +29,3 @@ class UserInput:
 if __name__ == "__main__":
     while True:
         print(UserInput.get_user_input())
-
