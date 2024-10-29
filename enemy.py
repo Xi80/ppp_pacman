@@ -47,11 +47,12 @@ class Enemy(Item):
             True
 
         """
-        movable_directions = [(0, 0), (0, 1), (0, -1), (1, 0), (-1, 0)]
-        current_position = self.get_pos()
-        self.next_x = current_position[0] + random.choice(movable_directions)[0]
-        self.next_y = current_position[1] + random.choice(movable_directions)[1]
+        movable_dirs = [(0, 0), (0, 1), (0, -1), (1, 0), (-1, 0)]
+        current_pos = self.get_pos()
+        self.next_x = current_pos[0] + random.choice(movable_dirs)[0]
+        self.next_y = current_pos[1] + random.choice(movable_dirs)[1]
         return self.next_x, self.next_y
+
 
 if __name__ == "__main__":
     import doctest
