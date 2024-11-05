@@ -1,10 +1,9 @@
 # Pacman Project
 
-プロジェクトの概要をここに記載します．
-このREADMEは雛形ですので，適宜修正してください．
+キーボード入力によってターミナル上を動くパックマンです。
 
 ## Requirement
-- Python 3.9
+- Python 3.12.5
 
 
 ## Installation
@@ -20,35 +19,9 @@ pip install -r requirements.txt
 
 ## Usage
 - メインプログラムを実行．
-  - `result/[日付][実行時刻]/` 下に実行結果とログが出力されます．
+  - 
 ```shell
 python main.py
-```
-- デフォルトのパラメータ設定をjson出力．
-```shell
-python config.py  # parameters.jsonというファイルが出力される．
-```
-- 以下のように，上記で生成されるjsonファイルの数値を書き換えて，実行時のパラメータを指定できます．
-```shell
-python main.py -p parameters.json
-```
-- 詳しいコマンドの使い方は以下のように確認できます．
-```shell
-python main.py -h
-```
-
-
-## Parameter Settings
-
-- 指定できるパラメータは以下の通り．
-```json
-{
-    "param1": 0,    # ダミーのパラメータ1
-    "param2": {     # ダミーのパラメータ2
-        "k1": "v1",
-        "k2": "v2"
-    }
-}
 ```
 
 ## Directory Structure
@@ -57,8 +30,17 @@ python main.py -h
 .
 ├── config.py           # パラメータ定義
 ├── main.py             # 実行ファイル
-├── parameters.json     # パラメータ指定用ファイル
 ├── result              # 結果出力ディレクトリ
-│   └── 20211026_165841
+│   └── 20241105_170100
+├── block.py            # Blockクラス
+├── controller_test.py  #コントローラ入力のテスト
+├── enemy.py            # Enemyクラス
+├── field.py            # Fieldクラス
+├── food.py             # Foodクラス
+├── game.py             # Gameクラス
+├── input_without_enter # エンターキーを押さずに入力を受け取るクラス
+├── item.py             # block,player,enemy,foodの親クラス
+├── player.py           # Playerクラス
+├── userinput.py        # ユーザーの入力を受け取るクラス
 └── utils.py            # 共有関数群
 ```
