@@ -39,7 +39,7 @@ class Field:
 
         """
         self.f_size = f_size
-        self.field = [[" "for _ in range(f_size)] for _ in range(f_size)]
+        self.field = [[""for _ in range(f_size)] for _ in range(f_size)]
         self.players = players
         self.foods = foods
         self.blocks = blocks
@@ -74,7 +74,7 @@ class Field:
         # fieldを初期化して空白にする
         for i in range(len(self.field)):
             for j in range(len(self.field[i])):
-                self.field[i][j] = " "
+                self.field[i][j] = "　"
         # playerの更新処理
         for player in self.players:
             if player.status:
