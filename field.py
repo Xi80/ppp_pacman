@@ -2,6 +2,7 @@ from player import Player
 from food import Food
 from block import Block
 from enemy import Enemy
+from item import Item
 
 
 class Field:
@@ -92,6 +93,40 @@ class Field:
             if enemy.status:
                 self.field[enemy.now_y][enemy.now_x] = enemy.icon
         return self.field
+
+    # 衝突判定を行う関数
+    def check_bump(
+            self,
+            target: Item,
+            items: list[Item]) -> Item | None:
+        """
+        2つのアイテムの位置が重なっているか判定する関数
+
+        Args:
+            target (Item): アイテム1
+            items (list[Item]): アイテムのリスト2
+
+        Returns:
+            Item | None: 重なっているアイテムがあればそのアイテム、なければNone
+
+        Examples:
+            >>> p = Item(0, 0)
+            >>> e = Item(1, 1)
+            >>> field = Field([p], [e], [], [])
+            >>> p.next_x = 1
+            >>> r = field.check_bump(p, [e])
+            >>> r is None
+            True
+            >>> p.next_y = 1
+            >>> r = field.check_bump(p, [e])
+            >>> r is e
+            True
+        """
+        # 衝突判定を行う処理を記述
+        for item in items:
+            if item.next_x == target.next_x and item.next_y == target.next_y:
+                return item
+        return None
 
     # Fieldを表示する関数
     def _display_field(self) -> None:

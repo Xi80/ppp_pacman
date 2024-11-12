@@ -48,7 +48,7 @@ class Game:
             params (Parameters): configのパラメータのインスタンス
         """
         f_size = 6  # フィールドのサイズ
-        e_num = 0
+        e_num = 2
         f_num = 0
         # フィールドの初期化
         self.players = [Player(1, 1)]
@@ -89,19 +89,35 @@ class Game:
             os.system("cls" if os.name == "nt" else "clear")  # ターミナルをクリア
             self.field._display_field()
 
+            # 敵の移動を決定
+            for enemy in self.enemies:
+                enemy.get_next_pos()
+
             # プレイヤーの移動を決定
             for player in self.players:
                 # キー入力を受け取る
                 key = UserInput.get_user_input()
                 player.get_next_pos(key)
 
+            for item in self.players + self.enemies:
+                # ブロックとの衝突判定
+                bumped_item = self.field.check_bump(item, list(self.blocks))
+                if bumped_item is not None:
+                    item.update_pos(stuck=True)
+                else:
+                    item.update_pos()
 
-            # プレイヤーと敵の移動
-            for item in self.players:
-                item.update_pos()
+            for player in self.players:
+                # 敵との衝突判定
+                if self.field.check_bump(player, list(self.enemies)):
+                    self.field._update_field()
+                    os.system("cls" if os.name == "nt" else "clear")
+                    # ターミナルをクリア
+                    self.field._display_field()
+                    logger.info("Game Over!")
+                    return "Game Over!"
 
             self.field._update_field()
 
             time.sleep(0.1)
-
 
