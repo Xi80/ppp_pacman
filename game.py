@@ -139,6 +139,16 @@ class Game:
                         logger.info("Game Over!")
                         return "Game Over!"
 
+            active_food = list(filter(lambda x: x.status is True, self.foods))
+            print(active_food)
+            if len(active_food) == 0:
+                self.field._update_field()
+                os.system("cls" if os.name == "nt" else "clear")
+                # ターミナルをクリア
+                self.field._display_field()
+                logger.info("Game Clear!")
+                return "Game Clear!"
+
             self.field._update_field()
 
             time.sleep(0.1)
