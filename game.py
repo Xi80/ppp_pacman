@@ -120,4 +120,3 @@ class Game:
             self.field._update_field()
 
             time.sleep(0.1)
-
