@@ -124,6 +124,8 @@ class Field:
         """
         # 衝突判定を行う処理を記述
         for item in items:
+            if item.status is not True:
+                continue
             if item.next_x == target.next_x and item.next_y == target.next_y:
                 return item
         return None
