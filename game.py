@@ -140,7 +140,6 @@ class Game:
                         return "Game Over!"
 
             active_food = list(filter(lambda x: x.status is True, self.foods))
-            print(active_food)
             if len(active_food) == 0:
                 self.field._update_field()
                 os.system("cls" if os.name == "nt" else "clear")
