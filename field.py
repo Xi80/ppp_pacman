@@ -156,7 +156,6 @@ class Field:
             row_str = "".join(row)
             row_str = row_str.ljust(max_width)
             print(row_str)
-        pass
 
 
 if __name__ == "__main__":

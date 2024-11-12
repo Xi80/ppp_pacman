@@ -48,8 +48,8 @@ class Game:
             params (Parameters): configのパラメータのインスタンス
         """
         f_size = 6  # フィールドのサイズ
-        e_num = 2
-        f_num = 0
+        e_num = 1
+        f_num = 1
         # フィールドの初期化
         self.players = [Player(1, 1)]
         self.enemies = [
@@ -107,15 +107,37 @@ class Game:
                 else:
                     item.update_pos()
 
+            for item in self.enemies:
+                # 敵とフードとの衝突判定
+                bumped_item = self.field.check_bump(
+                    item, list(self.foods + self.enemies))
+                if bumped_item is not None:
+                    item.update_pos(stuck=True)
+                else:
+                    item.update_pos()
+
+            for item in self.players:
+                # プレイヤーとフードとの衝突判定
+                bumped_item = self.field.check_bump(item, list(self.foods))
+                if bumped_item is not None:
+                    bumped_item.status = False
+                    item.set_invincible(True)
+                item.update_pos()
+
             for player in self.players:
                 # 敵との衝突判定
-                if self.field.check_bump(player, list(self.enemies)):
-                    self.field._update_field()
-                    os.system("cls" if os.name == "nt" else "clear")
-                    # ターミナルをクリア
-                    self.field._display_field()
-                    logger.info("Game Over!")
-                    return "Game Over!"
+                bumped_item = self.field.check_bump(player, list(self.enemies))
+                if bumped_item is not None:
+                    if player.get_invincible() is True:
+                        bumped_item.status = False
+                        item.update_pos(stuck=False)
+                    else:
+                        self.field._update_field()
+                        os.system("cls" if os.name == "nt" else "clear")
+                        # ターミナルをクリア
+                        self.field._display_field()
+                        logger.info("Game Over!")
+                        return "Game Over!"
 
             self.field._update_field()
 

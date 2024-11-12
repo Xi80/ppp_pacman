@@ -21,8 +21,7 @@ class Player(Item):
 
     def __init__(self, x, y) -> None:
         super().__init__(x, y)
-        self.icon = "😶"
-        self.invincible = False
+        self.set_invincible(False)
         self.count = 0
         pass
 
@@ -70,9 +69,11 @@ class Player(Item):
         self.invincible = state
 
         if self.invincible is True:
-            self.count = 100
+            self.count = 20
+            self.icon = "🤩"
         else:
             self.count = 0
+            self.icon = "😀"
 
     def get_invincible(self) -> bool:
         """
@@ -99,7 +100,7 @@ class Player(Item):
             if self.count > 0:
                 self.count -= 1
             if self.count == 0:
-                self.invincible = False
+                self.set_invincible(False)
 
         return super().update_pos(stuck)
 
