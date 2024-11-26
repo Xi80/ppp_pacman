@@ -104,13 +104,15 @@ class Game:
                     if player.get_invincible() is True:
                         bumped_item.status = False
                         player.update_pos(stuck=False)
+                        player.add_score(100)
                     else:
                         self.field._update_field()
                         os.system("cls" if os.name == "nt" else "clear")
                         # ターミナルをクリア
                         self.field._display_field()
-                        logger.info("Game Over!")
-                        return "Game Over!"
+                        score = self.players[0].get_score()
+                        logger.info(f"GameOver! Score:{score}")
+                        return f"GameOver! Score:{score}"
 
             # 敵の移動を決定
             for enemy in [e for e in self.enemies if e.status]:
@@ -135,13 +137,14 @@ class Game:
                 else:
                     item.update_pos()
 
-            for item in self.players:
+            for player in self.players:
                 # プレイヤーとフードとの衝突判定
-                bumped_item = self.field.check_bump(item, list(self.foods))
+                bumped_item = self.field.check_bump(player, list(self.foods))
                 if bumped_item is not None:
                     bumped_item.status = False
-                    item.set_invincible(True)
-                item.update_pos()
+                    player.set_invincible(True)
+                    player.add_score(10)
+                player.update_pos()
 
             active_food = list(filter(lambda x: x.status is True, self.foods))
             if len(active_food) == 0:
@@ -149,8 +152,9 @@ class Game:
                 os.system("cls" if os.name == "nt" else "clear")
                 # ターミナルをクリア
                 self.field._display_field()
-                logger.info("Game Clear!")
-                return "Game Clear!"
+                score = self.players[0].get_score()
+                logger.info(f"Game Clear! Score:{score}")
+                return f"Game Clear! Score:{score}"
 
             self.field._update_field()
 
@@ -173,4 +177,8 @@ class Game:
         """
         remaining_enemies = [e for e in self.enemies if e.status]
         remaining_foods = [e for e in self.foods if e.status]
-        return (f"Enemy:{len(remaining_enemies)} Foods:{len(remaining_foods)}")
+        ret = f"Enemy:{len(remaining_enemies)} "
+        ret += f"Foods:{len(remaining_foods)} "
+        for player in self.players:
+            ret += f"Score:{player.get_score()} "
+        return ret
