@@ -50,6 +50,7 @@ class Game:
         self.f_size = 10  # フィールドのサイズ
         self.e_num = 5
         self.f_num = 5
+        self.b_num = 10
         # フィールドの初期化
         self.players = [Player(1, 1)]
         self.occupied_positions = {(1, 1)}  # 既に占有されている位置を追跡
@@ -68,6 +69,8 @@ class Game:
             for y in range(self.f_size)
             if x == 0 or x == self.f_size - 1 or y == 0 or y == self.f_size - 1
         ]
+        for b in range(self.b_num):
+            self.blocks.append(self.create_unique_object(Block))
         self.field = Field(
             self.players,
             self.enemies,
