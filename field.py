@@ -46,7 +46,6 @@ class Field:
         self.blocks = blocks
         self.enemys = enemys
         self._update_field()
-        pass
 
     def _update_field(self) -> list[list[str]]:
         """
