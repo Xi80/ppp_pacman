@@ -17,13 +17,40 @@ class Player(Item):
         self.status(bool) : アイテムの状態（Trueなら存在する、Falseなら存在しない消滅した）
         self.invincible(bool) : プレイヤーの状態(Trueで無敵モード，Falseで通常モード)
         self.count(int) : 残りの無敵時間カウント
+        self.score(int) : 現在のスコア
     """
 
     def __init__(self, x, y) -> None:
         super().__init__(x, y)
         self.set_invincible(False)
         self.count = 0
+        self.score = 0
         pass
+
+    def add_score(self, score: int) -> None:
+        """
+        スコアを加算
+        Args:
+            score(int)  : 加算するスコア
+        Returns:
+            None
+        Examples:
+            >>> player = Player(4, 4)
+            >>> player.add_score(10)
+            >>> player.get_score()
+            10
+        """
+        self.score += score
+
+    def get_score(self) -> int:
+        """
+        現在のスコアを返す
+        Args:
+            None
+        Returns:
+            int: 現在のスコア
+        """
+        return self.score
 
     def get_next_pos(self, dir: tuple[int, int]) -> tuple[int, int]:
         """
