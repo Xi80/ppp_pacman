@@ -113,7 +113,7 @@ class Game:
                         return "Game Over!"
 
             # 敵の移動を決定
-            for enemy in self.enemies:
+            for enemy in [e for e in self.enemies if e.status]:
                 enemy.get_next_pos()
 
             for item in self.players:
