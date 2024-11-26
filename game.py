@@ -89,7 +89,7 @@ class Game:
             #  フィールドを表示
             os.system("cls" if os.name == "nt" else "clear")  # ターミナルをクリア
             self.field._display_field()
-
+            print(self.create_score_text())
             # 敵の移動を決定
             for enemy in self.enemies:
                 enemy.get_next_pos()
@@ -165,3 +165,11 @@ class Game:
             if (x, y) not in self.occupied_positions:
                 self.occupied_positions.add((x, y))
                 return obj_type(x, y)
+
+    def create_score_text(self) -> str:
+        """
+        スコア表示用テキストを作成
+        """
+        remaining_enemies = [e for e in self.enemies if e.status]
+        remaining_foods = [e for e in self.foods if e.status]
+        return (f"Enemy:{len(remaining_enemies)} Foods:{len(remaining_foods)}")
