@@ -90,15 +90,31 @@ class Game:
             os.system("cls" if os.name == "nt" else "clear")  # ターミナルをクリア
             self.field._display_field()
             print(self.create_score_text())
-            # 敵の移動を決定
-            for enemy in self.enemies:
-                enemy.get_next_pos()
 
             # プレイヤーの移動を決定
             for player in self.players:
                 # キー入力を受け取る
                 key = UserInput.get_user_input()
                 player.get_next_pos(key)
+
+            for player in self.players:
+                # 敵との衝突判定
+                bumped_item = self.field.check_bump(player, list(self.enemies))
+                if bumped_item is not None:
+                    if player.get_invincible() is True:
+                        bumped_item.status = False
+                        player.update_pos(stuck=False)
+                    else:
+                        self.field._update_field()
+                        os.system("cls" if os.name == "nt" else "clear")
+                        # ターミナルをクリア
+                        self.field._display_field()
+                        logger.info("Game Over!")
+                        return "Game Over!"
+
+            # 敵の移動を決定
+            for enemy in self.enemies:
+                enemy.get_next_pos()
 
             for item in self.players:
                 # ブロックとの衝突判定
@@ -126,21 +142,6 @@ class Game:
                     bumped_item.status = False
                     item.set_invincible(True)
                 item.update_pos()
-
-            for player in self.players:
-                # 敵との衝突判定
-                bumped_item = self.field.check_bump(player, list(self.enemies))
-                if bumped_item is not None:
-                    if player.get_invincible() is True:
-                        bumped_item.status = False
-                        item.update_pos(stuck=False)
-                    else:
-                        self.field._update_field()
-                        os.system("cls" if os.name == "nt" else "clear")
-                        # ターミナルをクリア
-                        self.field._display_field()
-                        logger.info("Game Over!")
-                        return "Game Over!"
 
             active_food = list(filter(lambda x: x.status is True, self.foods))
             if len(active_food) == 0:
