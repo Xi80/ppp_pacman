@@ -47,32 +47,33 @@ class Game:
         Args:
             params (Parameters): configのパラメータのインスタンス
         """
-        f_size = 6  # フィールドのサイズ
-        e_num = 1
-        f_num = 1
+        self.f_size = 10  # フィールドのサイズ
+        self.e_num = 5
+        self.f_num = 5
         # フィールドの初期化
         self.players = [Player(1, 1)]
+        self.occupied_positions = {(1, 1)}  # 既に占有されている位置を追跡
         self.enemies = [
-            Enemy(randint(1, f_size - 2), randint(1, f_size - 2))
-            for _ in range(e_num)]
+            self.create_unique_object(Enemy) for _ in range(self.e_num)
+        ]
         self.foods = [
-            Food(randint(1, f_size - 2), randint(1, f_size - 2))
-            for _ in range(f_num)
-            ]
-        if f_size < 4:
+            self.create_unique_object(Food) for _ in range(self.f_num)
+        ]
+
+        if self.f_size < 4:
             raise ValueError("field_size must be greater than 4")
         self.blocks = [
             Block(x, y)
-            for x in range(f_size)
-            for y in range(f_size)
-            if x == 0 or x == f_size - 1 or y == 0 or y == f_size - 1
+            for x in range(self.f_size)
+            for y in range(self.f_size)
+            if x == 0 or x == self.f_size - 1 or y == 0 or y == self.f_size - 1
         ]
         self.field = Field(
             self.players,
             self.enemies,
             self.foods,
             self.blocks,
-            f_size)
+            self.f_size)
 
     def start(self) -> str:
         """ゲームのメインループ
@@ -99,7 +100,7 @@ class Game:
                 key = UserInput.get_user_input()
                 player.get_next_pos(key)
 
-            for item in self.players + self.enemies:
+            for item in self.players:
                 # ブロックとの衝突判定
                 bumped_item = self.field.check_bump(item, list(self.blocks))
                 if bumped_item is not None:
@@ -108,9 +109,11 @@ class Game:
                     item.update_pos()
 
             for item in self.enemies:
-                # 敵とフードとの衝突判定
+                # 敵の衝突判定
+                other_enemies = [e for e in self.enemies if e is not item]
+                bump_targets = list(self.foods + self.blocks + other_enemies)
                 bumped_item = self.field.check_bump(
-                    item, list(self.foods + self.enemies))
+                    item, bump_targets)
                 if bumped_item is not None:
                     item.update_pos(stuck=True)
                 else:
@@ -150,4 +153,15 @@ class Game:
 
             self.field._update_field()
 
-            time.sleep(0.1)
+            time.sleep(0.2)
+
+    def create_unique_object(self, obj_type):
+        """
+        指定されたクラスのオブジェクトを重複のない位置で生成する。
+        """
+        while True:
+            x = randint(1, self.f_size - 2)
+            y = randint(1, self.f_size - 2)
+            if (x, y) not in self.occupied_positions:
+                self.occupied_positions.add((x, y))
+                return obj_type(x, y)
