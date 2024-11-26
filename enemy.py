@@ -49,8 +49,9 @@ class Enemy(Item):
         """
         movable_dirs = [(0, 0), (0, 1), (0, -1), (1, 0), (-1, 0)]
         current_pos = self.get_pos()
-        self.next_x = current_pos[0] + random.choice(movable_dirs)[0]
-        self.next_y = current_pos[1] + random.choice(movable_dirs)[1]
+        choice = random.choice(movable_dirs)
+        self.next_x = current_pos[0] + choice[0]
+        self.next_y = current_pos[1] + choice[1]
         return self.next_x, self.next_y
 
 
