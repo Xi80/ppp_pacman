@@ -47,10 +47,10 @@ class Game:
         Args:
             params (Parameters): configのパラメータのインスタンス
         """
-        self.f_size = 10  # フィールドのサイズ
-        self.e_num = 5
-        self.f_num = 5
-        self.b_num = 10
+        self.f_size = params.args["field_size"]
+        self.e_num = params.args["enemy_count"]
+        self.f_num = params.args["food_count"]
+        self.b_num = params.args["block_count"]
         # フィールドの初期化
         self.players = [Player(1, 1)]
         self.occupied_positions = {(1, 1)}  # 既に占有されている位置を追跡

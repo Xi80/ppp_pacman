@@ -27,9 +27,10 @@ class Parameters:
     run_date: str = ''  # 実行時の時刻
     git_revision: str = ''  # 実行時のプログラムのGitのバージョン
 
-    param1: int = 0  # パラメータを定義する例
-    param2: dict = field(default_factory=lambda: {'k1': 'v1', 'k2': 'v2'})
-    # リストや辞書で与える例
+    field_size: int = 6
+    enemy_count: int = 2
+    food_count: int = 2
+    block_count: int = 0
 
 
 def common_args(parser: 'ArgumentParser'):
@@ -44,10 +45,11 @@ def common_args(parser: 'ArgumentParser'):
         help="パラメータ設定ファイルのパスを指定．デフォルトはNone",
         type=str,
         default=None)
-    parser.add_argument("-a", "--arg1", type=int, help="arg1の説明", default=0)
     # コマンドライン引数を指定
-    parser.add_argument("--arg2", type=float, help="arg2の説明", default=1.0)
-    # コマンドライン引数を指定
+    parser.add_argument("--field_size", type=int, help="フィールドのサイズ", default=6)
+    parser.add_argument("--enemy_count", type=int, help="敵の数", default=2)
+    parser.add_argument("--food_count", type=int, help="食べ物の数", default=2)
+    parser.add_argument("--block_count", type=int, help="邪魔ブロックの数", default=0)
     return parser
 
 
